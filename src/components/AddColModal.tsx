@@ -31,12 +31,13 @@ export default function AddColModal({columns, setColumns} : AddColModalProps) {
 
   const [name, setName] = useState('')
   const [colType, setColType] = useState<string>('beneficial')
+  const [weight, setWeight] = useState(0.5)
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     // console.log('submitted')
     if(name.length === 0 || colType === null) return
-    setColumns([...columns, {title: name, benefitial: colType === 'beneficial', weight: 0.5}])
+    setColumns([...columns, {title: name, beneficial: colType === 'beneficial', weight: weight}])
     setOpen(false)
   }
   useEffect(() => {
@@ -74,6 +75,23 @@ export default function AddColModal({columns, setColumns} : AddColModalProps) {
                 onChange={(e) => setName(e.target.value)}
                 required
               />
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="weight" className="text-right">
+                    Weight
+                </Label>
+                <Input
+                    id="weight"
+                    min={0}
+                    step={0.1}
+                    max={1}
+                    type="number"
+                    placeholder="Enter a Weight"
+                    className="col-span-3"
+                    value={weight}
+                    onChange={(e) => {setWeight(parseFloat(e.target.value))}}
+                    required
+                />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="type" className="text-right">
