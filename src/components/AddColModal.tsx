@@ -83,7 +83,7 @@ export default function AddColModal({columns, setColumns} : AddColModalProps) {
                 <Input
                     id="weight"
                     min={0}
-                    step={0.1}
+                    step={0.01}
                     max={1}
                     type="number"
                     placeholder="Enter a Weight"

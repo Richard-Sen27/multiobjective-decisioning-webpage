@@ -1,5 +1,6 @@
 import { Column, Row } from "@/App"
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { cn, toPercent } from "@/lib/utils"
 
 
 type TableProps = {
@@ -9,6 +10,12 @@ type TableProps = {
 
 export default function ResultTable({columns, rows} : TableProps) {
     const result = calcTotalResult(rows, columns)
+    let min = Infinity
+    let max = -Infinity
+    for (const key in result) {
+        if (result[key] < min) min = result[key]
+        if (result[key] > max) max = result[key]
+    }
     // console.log('result: ',result)
     return (
         <div className='mx-auto w-2/3 mt-12'>
@@ -23,7 +30,7 @@ export default function ResultTable({columns, rows} : TableProps) {
                 <TableBody>
                     {   
                         rows ? rows.map((row, index) => (
-                            <TableRow key={index}>
+                            <TableRow key={index} className={cn(result[row.title] === min? "bg-red-100 hover:bg-red-200" : result[row.title] === max? "bg-green-100 hover:bg-green-200" : "")}>
                                 <TableCell>{row.title}</TableCell>
                                 <TableCell>{toPercent(result[row.title])}</TableCell>
                             </TableRow>
@@ -41,10 +48,6 @@ export default function ResultTable({columns, rows} : TableProps) {
 
 type Result = {
     [key: string]: number
-}
-
-function toPercent(value: number): string {
-    return `${(value * 100).toFixed(2)}%`;
 }
 
 function calcTotalResult(rows: Row[], columns: Column[]): Result {

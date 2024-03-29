@@ -24,6 +24,7 @@ import EditRowModal from './EditRowModal'
 import { DeleteRowAlert } from './DeleteRowAlert'
 import { DeleteColAlert } from './DeleteColAlert'
 import EditColModal from './EditColModal'
+import { toPercent } from '@/lib/utils'
 
 export default function CriterionTable({columns, setColumns, rows, setRows} : TableProps) {
     const [editRow, setEditRow] = useState('')
@@ -44,7 +45,7 @@ export default function CriterionTable({columns, setColumns, rows, setRows} : Ta
                 columns.map((c, i) => 
                   <ContextMenu key={i}>
                     <ContextMenuTrigger className='cursor-pointer' asChild>
-                      <TableHead>{c.title}</TableHead>
+                      <TableHead>{c.title} ({toPercent(c.weight)})</TableHead>
                     </ContextMenuTrigger>
                     <ContextMenuContent>
                     <ContextMenuItem onClick={() => setEditCol(c)}>
