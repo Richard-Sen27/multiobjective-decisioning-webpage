@@ -42,7 +42,7 @@ export default function AddRowModal({rows, setRows} : AddRowModalProps) {
       <DialogContent className="sm:max-w-[425px]">
         <form onSubmit={handleSubmit}>
           <DialogHeader>
-            <DialogTitle>Add a row (Subject)</DialogTitle>
+            <DialogTitle>Add a row</DialogTitle>
             <DialogDescription>
               Add a new Subject for more options.
             </DialogDescription>

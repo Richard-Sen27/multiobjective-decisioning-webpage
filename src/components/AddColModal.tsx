@@ -36,7 +36,7 @@ export default function AddColModal({columns, setColumns} : AddColModalProps) {
     e.preventDefault()
     // console.log('submitted')
     if(name.length === 0 || colType === null) return
-    setColumns([...columns, {title: name, benefitial: colType === 'beneficial'}])
+    setColumns([...columns, {title: name, benefitial: colType === 'beneficial', weight: 0.5}])
     setOpen(false)
   }
   useEffect(() => {

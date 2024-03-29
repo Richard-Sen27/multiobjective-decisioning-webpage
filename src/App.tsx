@@ -22,6 +22,7 @@ function App() {
     setColumns(storedColumns)
     setRows(storedRows)
   }, [])
+
   useEffect(() => {
     setTableProps({
       columns,
@@ -34,6 +35,7 @@ function App() {
     setStoredColumns(columns)
     setStoredRows(rows)
   }, [columns, rows])
+
   return (
     <>
       <CriterionTable {...tableProps}/>
@@ -49,7 +51,8 @@ export type Row = {
 
 export type Column = {
   title: string,
-  benefitial: boolean
+  weight: number,
+  beneficial: boolean
 }
 
 export type TableProps = {

@@ -9,6 +9,7 @@ type TableProps = {
 
 export default function ResultTable({columns, rows} : TableProps) {
     const result = calcTotalResult(rows, columns)
+    console.log('result: ',result)
     return (
         <div className='mx-auto w-2/3 mt-12'>
             <Table className="w-96">
@@ -43,6 +44,35 @@ type Result = {
 }
 
 function calcTotalResult(rows: Row[], columns: Column[]): Result {
-
-    return {}
-}
+    const result: Result = {};
+  
+    // Calculate the min and max values for each column
+    const columnStats: { [key: string]: { min: number, max: number } } = {};
+    columns.forEach(column => {
+      columnStats[column.title] = { min: Infinity, max: -Infinity };
+      rows.forEach(row => {
+        const value = parseFloat(row[column.title]);
+        if (!isNaN(value)) {
+          columnStats[column.title].min = Math.min(columnStats[column.title].min, value);
+          columnStats[column.title].max = Math.max(columnStats[column.title].max, value);
+        }
+      });
+    });
+  
+    // Normalize data, apply weights, and sum up for each row
+    rows.forEach(row => {
+      let rowSum = 0;
+      columns.forEach(column => {
+        const value = parseFloat(row[column.title]);
+        if (!isNaN(value)) {
+          const normalizedValue = column.beneficial
+            ? value / columnStats[column.title].max
+            : columnStats[column.title].min / value;
+          rowSum += normalizedValue * column.weight;
+        }
+      });
+      result[row.title] = rowSum;
+    });
+  
+    return result;
+  }

@@ -21,9 +21,11 @@ import AddColModal from '@/components/AddColModal'
 import AddRowModal from "@/components/AddRowModal";
 import { useEffect, useState } from 'react';
 import EditRowModal from './EditRowModal'
+import { DeleteRowAlert } from './DeleteRowAlert'
 
 export default function CriterionTable({columns, setColumns, rows, setRows} : TableProps) {
     const [editValue, setEditValue] = useState('')
+    const [deleteValue, setDeleteValue] = useState('')
     return(
       <div className='mx-auto w-2/3 mt-12'>
         <Table>
@@ -41,6 +43,8 @@ export default function CriterionTable({columns, setColumns, rows, setRows} : Ta
           </TableHeader>
           <TableBody>
             <EditRowModal value={editValue} setValue={setEditValue} rows={rows} setRows={setRows}/>
+            <DeleteRowAlert value={deleteValue} setValue={setDeleteValue} rows={rows} setRows={setRows}/>  
+
             {
               rows.map((r, i) => (
                 <ContextMenu key={i}>
@@ -65,9 +69,7 @@ export default function CriterionTable({columns, setColumns, rows, setRows} : Ta
                       Edit
                     </ContextMenuItem>
                     
-                    <ContextMenuItem onClick={() => {
-                        setRows(rows.filter((row, rI) => rI !== i && row.title !== r.title))
-                      }} className='!text-red-500'>
+                    <ContextMenuItem onClick={() => setDeleteValue(r.title)} className='!text-red-500'>
                         Delete
                     </ContextMenuItem>
                   </ContextMenuContent>
