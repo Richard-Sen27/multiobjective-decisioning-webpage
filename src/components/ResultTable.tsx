@@ -9,7 +9,7 @@ type TableProps = {
 
 export default function ResultTable({columns, rows} : TableProps) {
     const result = calcTotalResult(rows, columns)
-    console.log('result: ',result)
+    // console.log('result: ',result)
     return (
         <div className='mx-auto w-2/3 mt-12'>
             <Table className="w-96">
@@ -22,10 +22,10 @@ export default function ResultTable({columns, rows} : TableProps) {
                 </TableHeader>
                 <TableBody>
                     {   
-                        false ? rows.map((row, index) => (
+                        rows ? rows.map((row, index) => (
                             <TableRow key={index}>
                                 <TableCell>{row.title}</TableCell>
-                                <TableCell>{result[row.title]}</TableCell>
+                                <TableCell>{toPercent(result[row.title])}</TableCell>
                             </TableRow>
                         ))
                         :
@@ -41,6 +41,10 @@ export default function ResultTable({columns, rows} : TableProps) {
 
 type Result = {
     [key: string]: number
+}
+
+function toPercent(value: number): string {
+    return `${(value * 100).toFixed(2)}%`;
 }
 
 function calcTotalResult(rows: Row[], columns: Column[]): Result {
