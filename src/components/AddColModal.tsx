@@ -59,7 +59,7 @@ export default function AddColModal({columns, setColumns} : AddColModalProps) {
           <DialogHeader>
             <DialogTitle>Add a column (criterion)</DialogTitle>
             <DialogDescription>
-              Every column represents one criterion. Price, memroy and camera resolution are criterions for the decision of the most rational phone purchase.
+              Every column represents one criterion. Price, memory and camera resolution are criterions for the decision of the most rational phone purchase.
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">

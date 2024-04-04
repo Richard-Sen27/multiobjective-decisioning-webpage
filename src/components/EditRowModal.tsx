@@ -71,11 +71,12 @@ export default function EditRowModal({  value, setValue, rows, setRows} : AddRow
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Enter the subject name"
                 className="col-span-3"
+                required
               />
             </div>
           </div>
           <DialogFooter>
-            <Button type="submit">Edit Criterion</Button>
+            <Button type="submit">Save</Button>
           </DialogFooter>
         </form>
       </DialogContent>

@@ -3,42 +3,40 @@ import { useEffect, useState } from 'react'
 import { useSessionStorage } from 'usehooks-ts'
 import CriterionTable from './components/CriterionTable'
 import ResultTable from './components/ResultTable'
+import LinguisticVariables, { VariableCategory } from './components/LinguisticVariables'
 
 function App() {
-  const [columns, setColumns] = useState<Column[]>([])
-  const [rows, setRows] = useState<Row[]>([])
   
   const [tableProps, setTableProps] = useState<TableProps>({
     columns: [],
     setColumns: () => {},
     rows: [],
     setRows: () => {},
+    categories: [],
+    setCategories: () => {}
   })
 
-  const [storedColumns, setStoredColumns] = useSessionStorage<Column[]>('columns', columns)
-  const [storedRows, setStoredRows] = useSessionStorage<Row[]>('rows', rows)
-  
-  useEffect(() => {
-    setColumns(storedColumns)
-    setRows(storedRows)
-  }, [])
+  const [columns, setColumns] = useSessionStorage<Column[]>('columns', [])
+  const [rows, setRows] = useSessionStorage<Row[]>('rows', [])
+  const [categories, setCategories] = useSessionStorage<VariableCategory[]>('categories', [])
+
 
   useEffect(() => {
     setTableProps({
       columns,
       setColumns,
       rows,
-      setRows
+      setRows,
+      categories,
+      setCategories
     })
-    // console.log('columns:', columns)
-    // console.log('rows:', rows)
-    setStoredColumns(columns)
-    setStoredRows(rows)
-  }, [columns, rows])
+
+  }, [columns, rows, categories])
 
   return (
     <>
       <CriterionTable {...tableProps}/>
+      <LinguisticVariables {...tableProps}/>
       <ResultTable {...tableProps}/>
     </>
   )
@@ -57,9 +55,11 @@ export type Column = {
 
 export type TableProps = {
   columns: Column[],
-  setColumns: Function,
+  setColumns: (columns: Column[]) => void,
   rows: Row[],
-  setRows: Function
+  setRows: (rows: Row[]) => void,
+  categories: VariableCategory[],
+  setCategories: (categories: VariableCategory[]) => void
 }
 
 export default App

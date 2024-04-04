@@ -10,22 +10,22 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { MdAdd } from "react-icons/md"
-import { Row } from "@/App"
 import { useEffect, useState } from "react"
+import { VariableCategory } from "./LinguisticVariables"
 
-type AddRowModalProps = {
-  rows: Row[],
-  setRows: Function
+type AddCategoryModalProps = {
+  children: React.ReactNode,
+  categories: VariableCategory[],
+  setCategories: (category: VariableCategory[]) => void
 }
 
-export default function AddRowModal({rows, setRows} : AddRowModalProps) {
+export default function AddCategoryModal({children, categories, setCategories} : AddCategoryModalProps) {
   const [open, setOpen] = useState(false)
   const [name, setName] = useState('')
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if(name.length === 0) return
-    setRows([...rows, {title: name}])
+    setCategories([...categories, {name, variables: []}])
     setOpen(false)
   }
   useEffect(() => {
@@ -34,37 +34,36 @@ export default function AddRowModal({rows, setRows} : AddRowModalProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button type='button' variant="outline" 
-            className="text-2xl text-center p-2 hover:bg-green-400 hover:cursor-pointer transition-all duration-300 flex items-center justify-center">
-            <MdAdd />
-        </Button>
+        {
+          children
+        }
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <form onSubmit={handleSubmit}>
           <DialogHeader>
-            <DialogTitle>Add a row</DialogTitle>
+            <DialogTitle>Add Variable Category</DialogTitle>
             <DialogDescription>
-              Add a new Subject for more options.
+              Add a new category for more linguistic variables.
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="name" className="text-right">
-                Name
+                Category
               </Label>
               <Input
-                id="name"
+                id="category"
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="Enter the subject name"
+                placeholder="Enter a category name"
                 className="col-span-3"
                 required
               />
             </div>
           </div>
           <DialogFooter>
-            <Button type="submit">Add Criterion</Button>
+            <Button type="submit">Add Category</Button>
           </DialogFooter>
         </form>
       </DialogContent>

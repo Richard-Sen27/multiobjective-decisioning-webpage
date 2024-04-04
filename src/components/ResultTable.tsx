@@ -18,7 +18,7 @@ export default function ResultTable({columns, rows} : TableProps) {
     }
     // console.log('result: ',result)
     return (
-        <div className='mx-auto w-2/3 mt-12'>
+        <div className='mx-auto md:w-2/3 max-md:mx-8 mt-12'>
             <Table className="w-96">
                 <TableCaption>Calculated Subject Perfomances</TableCaption>
                 <TableHeader>
@@ -29,7 +29,7 @@ export default function ResultTable({columns, rows} : TableProps) {
                 </TableHeader>
                 <TableBody>
                     {   
-                        rows ? rows.map((row, index) => (
+                        Object.keys(result).length > 0 ? rows.map((row, index) => (
                             <TableRow key={index} className={cn(result[row.title] === min? "bg-red-100 hover:bg-red-200" : result[row.title] === max? "bg-green-100 hover:bg-green-200" : "")}>
                                 <TableCell>{row.title}</TableCell>
                                 <TableCell>{toPercent(result[row.title])}</TableCell>
@@ -37,7 +37,7 @@ export default function ResultTable({columns, rows} : TableProps) {
                         ))
                         :
                         <TableRow>
-                            <TableCell colSpan={2} className="text-center">No data avaliable! Please enter all values!</TableCell>
+                            <TableCell colSpan={2} className="text-center">No data avaliable!</TableCell>
                         </TableRow>
                     }
                 </TableBody>

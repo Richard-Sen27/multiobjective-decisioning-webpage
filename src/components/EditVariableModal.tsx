@@ -9,53 +9,52 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Column } from "@/App";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from "./ui/select";
+import { SpecificVariable, VariableCategory } from "./LinguisticVariables";
 
 type EditColModalProps = {
-  value: Column | null;
-  setValue: (col: Column | null) => void;
-  cols: Column[];
-  setCols: Function;
+  value: SpecificVariable | null;
+  setValue: (col: SpecificVariable | null) => void;
+  category: VariableCategory[],
+    setCategory: (category: VariableCategory[]) => void
 };
 
 export default function EditColModal({
   value,
   setValue,
-  cols,
-  setCols,
+  category,
+  setCategory,
 }: EditColModalProps) {
 
   const [open, setOpen] = useState(false);
-  const [name, setName] = useState(value?.title || "");
-  const [weight, setWeight] = useState(value?.weight || 0);
-  const [colType, setColType] = useState<string>(value?.beneficial ? "beneficial" : "nonBenficial")
+  const [name, setName] = useState(value?.variable.name || "");
+  const [number, setNumber] = useState(value?.variable.value || 0);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!value || value?.title.length === 0) return;
-    const index = cols.findIndex((c) => c.title === value?.title);
-    const newcols = [...cols];
-    newcols[index].title = name;
-    newcols[index].weight = weight;
-    newcols[index].beneficial = colType === "beneficial";
-    setCols(newcols);
+    if (!value) return;
+    setCategory(category.map((c) => {
+      if (c.name === value.category.name) {
+        return {
+          ...c,
+          variables: c.variables.map((v) => {
+            if (v.name === value.variable.name) {
+              return { name, value: number };
+            }
+            return v;
+          }),
+        };
+      }
+      return c;
+    }));
     setOpen(false);
   };
 
   useEffect(() => {
     if (value) {
-        setColType(value.beneficial ? "beneficial" : "nonBenficial")
-        setName(value.title);
-        setWeight(value.weight);
+        setName(value.variable.name);
+        setNumber(value.variable.value);
         setOpen(true);
     }
   }, [value]);
@@ -91,35 +90,18 @@ export default function EditColModal({
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="weight" className="text-right">
-                    Weight
+                <Label htmlFor="value" className="text-right">
+                    Value
                 </Label>
                 <Input
-                    id="weight"
-                    min={0}
-                    step={0.01}
-                    max={1}
+                    id="value"
                     type="number"
-                    placeholder="Enter a Weight"
+                    placeholder="Enter a Value"
                     className="col-span-3"
-                    value={weight}
-                    onChange={(e) => setWeight(parseFloat(e.target.value))}
+                    value={number}
+                    onChange={(e) => setNumber(parseFloat(e.target.value))}
                     required
                 />
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="type" className="text-right">
-                Type
-              </Label>
-              <Select value={colType} onValueChange={setColType}>
-                <SelectTrigger className="col-span-3">
-                  <SelectValue placeholder="Col-Type" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="beneficial">Beneficial</SelectItem>
-                  <SelectItem value="nonBenficial">Non-Beneficial</SelectItem>
-                </SelectContent>
-              </Select>
             </div>
           </div>
           <DialogFooter>

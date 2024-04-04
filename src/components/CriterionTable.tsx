@@ -25,6 +25,7 @@ import { DeleteRowAlert } from './DeleteRowAlert'
 import { DeleteColAlert } from './DeleteColAlert'
 import EditColModal from './EditColModal'
 import { toPercent } from '@/lib/utils'
+import { BsArrowUpRightCircle, BsArrowDownRightCircle } from "react-icons/bs";
 
 export default function CriterionTable({columns, setColumns, rows, setRows} : TableProps) {
     const [editRow, setEditRow] = useState('')
@@ -33,7 +34,7 @@ export default function CriterionTable({columns, setColumns, rows, setRows} : Ta
     const [editCol, setEditCol] = useState<Column | null>(null)
     const [deleteCol, setDeleteCol] = useState('')
     return(
-      <div className='mx-auto w-2/3 mt-12'>
+      <div className='mx-auto md:w-2/3 max-md:mx-8 mt-12'>
         <Table>
           <TableCaption>A list of your Criterions and Values</TableCaption>
           <TableHeader>
@@ -45,14 +46,19 @@ export default function CriterionTable({columns, setColumns, rows, setRows} : Ta
                 columns.map((c, i) => 
                   <ContextMenu key={i}>
                     <ContextMenuTrigger className='cursor-pointer' asChild>
-                      <TableHead>{c.title} ({toPercent(c.weight)})</TableHead>
+                      <TableHead className='text-nowrap'>
+                        <div className='flex items-center gap-2'>
+                          {c.beneficial? <BsArrowUpRightCircle className='text-green-500'/> : <BsArrowDownRightCircle className='text-red-500'/>} 
+                          {c.title} ({toPercent(c.weight)})
+                        </div>
+                      </TableHead>
                     </ContextMenuTrigger>
                     <ContextMenuContent>
                     <ContextMenuItem onClick={() => setEditCol(c)}>
                       Edit
                     </ContextMenuItem>
                     
-                    <ContextMenuItem onClick={() => setDeleteCol(c.title)} className='!text-red-500'>
+                    <ContextMenuItem onClick={() => setDeleteCol(c.title)} className='!text-destructive'>
                         Delete
                     </ContextMenuItem>
                   </ContextMenuContent>
@@ -73,7 +79,7 @@ export default function CriterionTable({columns, setColumns, rows, setRows} : Ta
                 <ContextMenu key={i}>
                   <ContextMenuTrigger className='cursor-pointer' asChild>
                     <TableRow key={i}>
-                      <TableCell colSpan={columns.length > 0? 1 : columns.length + 2}>
+                      <TableCell className="text-nowrap" colSpan={columns.length > 0? 1 : columns.length + 2}>
                             {r.title}
                       </TableCell>
                       {
@@ -92,7 +98,7 @@ export default function CriterionTable({columns, setColumns, rows, setRows} : Ta
                       Edit
                     </ContextMenuItem>
                     
-                    <ContextMenuItem onClick={() => setDeleteRow(r.title)} className='!text-red-500'>
+                    <ContextMenuItem onClick={() => setDeleteRow(r.title)} className='!text-destructive'>
                         Delete
                     </ContextMenuItem>
                   </ContextMenuContent>
