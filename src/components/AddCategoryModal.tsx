@@ -24,7 +24,7 @@ export default function AddCategoryModal({children, categories, setCategories} :
   const [name, setName] = useState('')
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if(name.length === 0) return
+    if(name.length === 0 || name === 'none') return
     setCategories([...categories, {name, variables: []}])
     setOpen(false)
   }

@@ -14,36 +14,39 @@ import {
     SelectItem,
     SelectTrigger,
     SelectValue,
-  } from "@/components/ui/select"  
+} from "@/components/ui/select"  
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { MdAdd } from "react-icons/md"
 import { useEffect, useState } from "react"
 import { Column } from "@/App"
+import { VariableCategory } from "./LinguisticVariables"
 
 type AddColModalProps = {
   columns: Column[],
-  setColumns: Function
+  setColumns: (columns: Column[]) => void,
+  categories: VariableCategory[],
 }
 
-export default function AddColModal({columns, setColumns} : AddColModalProps) {
+export default function AddColModal({columns, setColumns, categories} : AddColModalProps) {
   const [open, setOpen] = useState(false)
 
   const [name, setName] = useState('')
   const [colType, setColType] = useState<string>('beneficial')
   const [weight, setWeight] = useState(0.5)
+  const [category, setCategory] = useState<VariableCategory>({name: 'none', variables: []})
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    // console.log('submitted')
     if(name.length === 0 || colType === null) return
-    setColumns([...columns, {title: name, beneficial: colType === 'beneficial', weight: weight}])
+    setColumns([...columns, {title: name, beneficial: colType === 'beneficial', weight: weight, category: category.name === 'none'? null : category.name}])
     setOpen(false)
   }
   useEffect(() => {
     if(!open) {
       setName('')
       setColType('beneficial')
+      setCategory({name: 'none', variables: []})
     }
   }, [open])
   return (
@@ -76,6 +79,7 @@ export default function AddColModal({columns, setColumns} : AddColModalProps) {
                 required
               />
             </div>
+            
             <div className="grid grid-cols-4 items-center gap-4">
                 <Label htmlFor="weight" className="text-right">
                     Weight
@@ -93,19 +97,37 @@ export default function AddColModal({columns, setColumns} : AddColModalProps) {
                     required
                 />
             </div>
+            
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="category" className="text-right">
+                Category
+              </Label>
+              <Select value={category.name} onValueChange={(v) => {setCategory({name: v, variables: []})}}>
+                <SelectTrigger className="col-span-3">
+                    <SelectValue placeholder="Category" />
+                </SelectTrigger>
+                <SelectContent>
+                    <SelectItem value="none">None</SelectItem>
+                    {
+                      categories.map((c, i) => <SelectItem key={i} value={c.name}>{c.name}</SelectItem>)
+                    }
+                </SelectContent>
+              </Select>
+            </div>
+
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="type" className="text-right">
                 Type
               </Label>
-                <Select value={colType} onValueChange={setColType}>
-                  <SelectTrigger className="col-span-3">
-                      <SelectValue placeholder="Col-Type" />
-                  </SelectTrigger>
-                  <SelectContent>
-                      <SelectItem value="beneficial">Beneficial</SelectItem>
-                      <SelectItem value="nonBenficial">Non-Beneficial</SelectItem>
-                  </SelectContent>
-                </Select>
+              <Select value={colType} onValueChange={setColType}>
+                <SelectTrigger className="col-span-3">
+                    <SelectValue id="type" placeholder="Col-Type" />
+                </SelectTrigger>
+                <SelectContent>
+                    <SelectItem value="beneficial">Beneficial</SelectItem>
+                    <SelectItem value="nonBenficial">Non-Beneficial</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
           </div>
           <DialogFooter>

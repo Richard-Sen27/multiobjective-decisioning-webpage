@@ -26,19 +26,28 @@ import { DeleteColAlert } from './DeleteColAlert'
 import EditColModal from './EditColModal'
 import { toPercent } from '@/lib/utils'
 import { BsArrowUpRightCircle, BsArrowDownRightCircle } from "react-icons/bs";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { VariableCategory } from './LinguisticVariables'
 
-export default function CriterionTable({columns, setColumns, rows, setRows} : TableProps) {
+export default function CriterionTable({columns, setColumns, rows, setRows, categories, setCategories} : TableProps) {
     const [editRow, setEditRow] = useState('')
     const [deleteRow, setDeleteRow] = useState('')
 
     const [editCol, setEditCol] = useState<Column | null>(null)
     const [deleteCol, setDeleteCol] = useState('')
+
     return(
       <div className='mx-auto md:w-2/3 max-md:mx-8 mt-12'>
         <Table>
           <TableCaption>A list of your Criterions and Values</TableCaption>
           <TableHeader>
-            <EditColModal value={editCol} setValue={setEditCol} cols={columns} setCols={setColumns}/>
+            <EditColModal value={editCol} setValue={setEditCol} cols={columns} setCols={setColumns} categories={categories}/>
             <DeleteColAlert value={deleteCol} setValue={setDeleteCol} cols={columns} setCols={setColumns}/>
             <TableRow>
               <TableHead className="w-[100px]">Subject</TableHead>
@@ -66,7 +75,7 @@ export default function CriterionTable({columns, setColumns, rows, setRows} : Ta
                 )
               }
               <TableHead>
-                <AddColModal columns={columns} setColumns={setColumns}/>
+                <AddColModal columns={columns} setColumns={setColumns} categories={categories}/>
               </TableHead>
             </TableRow>
           </TableHeader>
@@ -84,7 +93,7 @@ export default function CriterionTable({columns, setColumns, rows, setRows} : Ta
                       </TableCell>
                       {
                         columns.map((col, colIndex) => 
-                          <TableInputCell key={col+"-"+colIndex} colAttr={col.title} rowIndex={i} rows={rows} setRows={setRows}/>
+                          <TableInputCell key={col+"-"+colIndex} col={col} categories={categories} rowIndex={i} rows={rows} setRows={setRows}/>
                         )
                       }
                       {
@@ -118,32 +127,52 @@ export default function CriterionTable({columns, setColumns, rows, setRows} : Ta
   
   type TableInputCellProps = {
     rowIndex: number,
-    colAttr: string,
+    col: Column,
+    categories: VariableCategory[],
     rows: Row[],
-    setRows: Function
+    setRows: (rows: Row[]) => void
   }
-  function TableInputCell({rowIndex, colAttr, rows, setRows} : TableInputCellProps) {
-    const [value, setValue] = useState(rows[rowIndex][colAttr] || '')
+
+  function TableInputCell({rowIndex, col, categories, rows, setRows} : TableInputCellProps) {
+    const [value, setValue] = useState(rows[rowIndex][col.title] || '')
+
     useEffect(() => {
       setRows(rows.map((row, rI) => {
-        if(rI === rowIndex) {
-          return {
+        return rI === rowIndex? 
+          {
             ...row,
-            [colAttr]: value
+            [col.title]: value
           }
-        }
-        return row
+        :
+          row
       }))
-    // console.log('value:', value)
+
     }, [value])
+
     return(
       <TableCell colSpan={1}>
-        <Input 
-          type="number" 
-          value={value} 
-          onChange={(e) => setValue(e.target.value)} 
-          placeholder='Enter a value'
-          className=''/>
+        {
+          col.category ?
+            <Select value={value} onValueChange={(e) => {setValue(e)}}>
+              <SelectTrigger>
+                <SelectValue placeholder="Choose a variable"/>
+              </SelectTrigger>
+              <SelectContent>
+                {
+                  categories.find((c) => c.name === col.category)?.variables.map((v, i) => 
+                    <SelectItem key={i} value={v.value.toString()}>{v.name}</SelectItem>
+                  )
+                }
+              </SelectContent>
+            </Select>
+            :
+            <Input 
+              type="number" 
+              value={value} 
+              onChange={(e) => setValue(e.target.value)} 
+              placeholder='Enter a value'
+              className=''/>    
+        }
       </TableCell>
     )
   }

@@ -75,7 +75,7 @@ function calcTotalResult(rows: Row[], columns: Column[]): Result {
           const normalizedValue = column.beneficial
             ? value / columnStats[column.title].max
             : columnStats[column.title].min / value;
-          rowSum += normalizedValue * column.weight;
+          rowSum += isNaN(normalizedValue)? 0: normalizedValue * column.weight;
         }
       });
       result[row.title] = rowSum;

@@ -21,8 +21,6 @@ import {
 } from "@/components/ui/tooltip"
 import { Switch } from "@/components/ui/switch"
 import { Label } from "@/components/ui/label"
-
-
 import { useState } from "react";
 import { Badge } from "./ui/badge";
 import { useSessionStorage } from "usehooks-ts";
@@ -62,8 +60,6 @@ export default function LinguisticVariables({categories, setCategories}: Linguis
     const [deleteVariable, setDeleteVariable] = useState<SpecificVariable | null>(null)
     const [editCategory, setEditCategory] = useState<VariableCategory | null>(null)
     const [deleteCategory, setDeleteCategory] = useState<string | null>(null)
-
-
 
     const removeCategory = (category: string | null) => {
         if(!category) return

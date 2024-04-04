@@ -50,6 +50,7 @@ export type Row = {
 export type Column = {
   title: string,
   weight: number,
+  category: string | null,
   beneficial: boolean
 }
 

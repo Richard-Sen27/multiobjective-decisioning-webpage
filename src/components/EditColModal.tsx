@@ -19,12 +19,14 @@ import {
   SelectContent,
   SelectItem,
 } from "./ui/select";
+import { VariableCategory } from "./LinguisticVariables";
 
 type EditColModalProps = {
   value: Column | null;
   setValue: (col: Column | null) => void;
   cols: Column[];
   setCols: Function;
+  categories: VariableCategory[];
 };
 
 export default function EditColModal({
@@ -32,11 +34,13 @@ export default function EditColModal({
   setValue,
   cols,
   setCols,
+  categories,
 }: EditColModalProps) {
 
   const [open, setOpen] = useState(false);
   const [name, setName] = useState(value?.title || "");
   const [weight, setWeight] = useState(value?.weight || 0);
+  const [category, setCategory] = useState<string>(value?.category || 'none');
   const [colType, setColType] = useState<string>(value?.beneficial ? "beneficial" : "nonBenficial")
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -47,6 +51,7 @@ export default function EditColModal({
     newcols[index].title = name;
     newcols[index].weight = weight;
     newcols[index].beneficial = colType === "beneficial";
+    newcols[index].category = category === "none" ? null : category;
     setCols(newcols);
     setOpen(false);
   };
@@ -56,6 +61,7 @@ export default function EditColModal({
         setColType(value.beneficial ? "beneficial" : "nonBenficial")
         setName(value.title);
         setWeight(value.weight);
+        setCategory(value.category ?? 'none');
         setOpen(true);
     }
   }, [value]);
@@ -90,6 +96,7 @@ export default function EditColModal({
                 required
               />
             </div>
+
             <div className="grid grid-cols-4 items-center gap-4">
                 <Label htmlFor="weight" className="text-right">
                     Weight
@@ -107,6 +114,24 @@ export default function EditColModal({
                     required
                 />
             </div>
+
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="category" className="text-right">
+                Category
+              </Label>
+              <Select value={category} onValueChange={setCategory}>
+                <SelectTrigger className="col-span-3">
+                    <SelectValue placeholder="Category" />
+                </SelectTrigger>
+                <SelectContent>
+                    <SelectItem value="none">None</SelectItem>
+                    {
+                      categories.map((c, i) => <SelectItem key={i} value={c.name}>{c.name}</SelectItem>)
+                    }
+                </SelectContent>
+              </Select>
+            </div>
+
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="type" className="text-right">
                 Type
