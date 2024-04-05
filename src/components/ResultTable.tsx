@@ -1,6 +1,7 @@
 import { Column, Row } from "@/App"
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { cn, toPercent } from "@/lib/utils"
+import { useDarkMode } from "usehooks-ts"
 
 
 type TableProps = {
@@ -9,14 +10,17 @@ type TableProps = {
 }
 
 export default function ResultTable({columns, rows} : TableProps) {
+
+    const { isDarkMode } = useDarkMode()
     const result = calcTotalResult(rows, columns)
+    
     let min = Infinity
     let max = -Infinity
     for (const key in result) {
         if (result[key] < min) min = result[key]
         if (result[key] > max) max = result[key]
     }
-    // console.log('result: ',result)
+
     return (
         <div className='mx-auto md:w-2/3 max-md:mx-8 mt-12'>
             <Table className="w-96">
@@ -30,7 +34,12 @@ export default function ResultTable({columns, rows} : TableProps) {
                 <TableBody>
                     {   
                         Object.keys(result).length > 0 ? rows.map((row, index) => (
-                            <TableRow key={index} className={cn(result[row.title] === min? "bg-red-100 hover:bg-red-200" : result[row.title] === max? "bg-green-100 hover:bg-green-200" : "")}>
+                            <TableRow 
+                              key={index} 
+                              className={cn(result[row.title] === min ? 
+                                              (isDarkMode? "bg-red-300 hover:bg-red-200 text-secondary" : "bg-red-100 hover:bg-red-200") : 
+                                              result[row.title] === max ?
+                                              (isDarkMode? "bg-green-300 hover:bg-green-200 text-secondary" : "bg-green-100 hover:bg-green-200") : "")}>
                                 <TableCell>{row.title}</TableCell>
                                 <TableCell>{toPercent(result[row.title])}</TableCell>
                             </TableRow>

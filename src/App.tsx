@@ -5,6 +5,7 @@ import CriterionTable from './components/CriterionTable'
 import ResultTable from './components/ResultTable'
 import LinguisticVariables, { VariableCategory } from './components/LinguisticVariables'
 import SaveSection from './components/SaveSections'
+import Navbar from './components/Navbar'
 
 function App() {
   
@@ -36,6 +37,7 @@ function App() {
 
   return (
     <>
+      <Navbar />
       <CriterionTable {...tableProps}/>
       <LinguisticVariables {...tableProps}/>
       <ResultTable {...tableProps}/>

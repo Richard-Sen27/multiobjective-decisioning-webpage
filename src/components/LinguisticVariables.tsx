@@ -93,7 +93,7 @@ export default function LinguisticVariables({categories, setCategories}: Linguis
                             return (
                                 <ContextMenu key={i}>
                                     <ContextMenuTrigger asChild>
-                                        <Card className="w-fit min-w-64 max-w-80">
+                                        <Card className="w-fit min-w-64 max-w-80 select-none">
                                             <CardHeader>
                                                 <CardTitle>{c.name}</CardTitle>                                                
                                             </CardHeader>

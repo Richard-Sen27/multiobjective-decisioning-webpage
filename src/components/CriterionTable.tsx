@@ -55,7 +55,7 @@ export default function CriterionTable({columns, setColumns, rows, setRows, cate
                 columns.map((c, i) => 
                   <ContextMenu key={i}>
                     <ContextMenuTrigger className='cursor-pointer' asChild>
-                      <TableHead className='text-nowrap'>
+                      <TableHead className='text-nowrap select-none'>
                         <div className='flex items-center gap-2'>
                           {c.beneficial? <BsArrowUpRightCircle className='text-green-500'/> : <BsArrowDownRightCircle className='text-red-500'/>} 
                           {c.title} ({toPercent(c.weight)})
@@ -88,7 +88,7 @@ export default function CriterionTable({columns, setColumns, rows, setRows, cate
                 <ContextMenu key={i}>
                   <ContextMenuTrigger className='cursor-pointer' asChild>
                     <TableRow key={i}>
-                      <TableCell className="text-nowrap" colSpan={columns.length > 0? 1 : columns.length + 2}>
+                      <TableCell className="text-nowrap select-none" colSpan={columns.length > 0? 1 : columns.length + 2}>
                             {r.title}
                       </TableCell>
                       {
