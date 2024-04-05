@@ -35,7 +35,7 @@ import {
 } from "@/components/ui/select"
 import { VariableCategory } from './LinguisticVariables'
 
-export default function CriterionTable({columns, setColumns, rows, setRows, categories, setCategories} : TableProps) {
+export default function CriterionTable({columns, setColumns, rows, setRows, categories} : TableProps) {
     const [editRow, setEditRow] = useState('')
     const [deleteRow, setDeleteRow] = useState('')
 

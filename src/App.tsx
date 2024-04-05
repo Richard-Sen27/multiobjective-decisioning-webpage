@@ -4,6 +4,7 @@ import { useSessionStorage } from 'usehooks-ts'
 import CriterionTable from './components/CriterionTable'
 import ResultTable from './components/ResultTable'
 import LinguisticVariables, { VariableCategory } from './components/LinguisticVariables'
+import SaveSection from './components/SaveSections'
 
 function App() {
   
@@ -38,6 +39,7 @@ function App() {
       <CriterionTable {...tableProps}/>
       <LinguisticVariables {...tableProps}/>
       <ResultTable {...tableProps}/>
+      <SaveSection {...tableProps} />
     </>
   )
 }

@@ -153,9 +153,7 @@ export default function LinguisticVariables({categories, setCategories}: Linguis
                     </div>
                 </ScrollArea>
                 : 
-                <Card className="p-4 text-center">
-                    N/A
-                </Card>
+                null
             }
             <div className="mt-4 flex flex-wrap gap-6 items-center">
                 <AddCategoryModal categories={categories} setCategories={setCategories}>
