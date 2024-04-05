@@ -34,6 +34,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { VariableCategory } from './LinguisticVariables'
+import { MdDelete, MdEdit } from 'react-icons/md'
 
 export default function CriterionTable({columns, setColumns, rows, setRows, categories} : TableProps) {
     const [editRow, setEditRow] = useState('')
@@ -64,11 +65,11 @@ export default function CriterionTable({columns, setColumns, rows, setRows, cate
                     </ContextMenuTrigger>
                     <ContextMenuContent>
                     <ContextMenuItem onClick={() => setEditCol(c)}>
-                      Edit
+                      <MdEdit className='mr-2'/> {c.title}
                     </ContextMenuItem>
                     
-                    <ContextMenuItem onClick={() => setDeleteCol(c.title)} className='!text-destructive'>
-                        Delete
+                    <ContextMenuItem onClick={() => setDeleteCol(c.title)} className='!text-red-500'>
+                        <MdDelete className='mr-2'/> {c.title}
                     </ContextMenuItem>
                   </ContextMenuContent>
                   </ContextMenu>
@@ -104,11 +105,11 @@ export default function CriterionTable({columns, setColumns, rows, setRows, cate
                   
                   <ContextMenuContent>
                     <ContextMenuItem onClick={() => setEditRow(r.title)}>
-                      Edit
+                      <MdEdit className='mr-2'/> {r.title}
                     </ContextMenuItem>
                     
-                    <ContextMenuItem onClick={() => setDeleteRow(r.title)} className='!text-destructive'>
-                        Delete
+                    <ContextMenuItem onClick={() => setDeleteRow(r.title)} className='!text-red-500'>
+                        <MdDelete className='mr-2'/> {r.title}
                     </ContextMenuItem>
                   </ContextMenuContent>
                 </ContextMenu>

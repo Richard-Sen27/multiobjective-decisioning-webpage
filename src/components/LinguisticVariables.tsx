@@ -12,6 +12,7 @@ import {
     ContextMenuContent,
     ContextMenuItem,
     ContextMenuTrigger,
+    ContextMenuSeparator
 } from "@/components/ui/context-menu"
 import {
     Tooltip,
@@ -123,7 +124,7 @@ export default function LinguisticVariables({categories, setCategories}: Linguis
                                                                         <ContextMenuItem onClick={() => { setEditVariable({category: c, variable: v}) }}>
                                                                             <MdEdit className="mr-2"/> {v.name}
                                                                         </ContextMenuItem>
-                                                                        <ContextMenuItem className="!text-destructive" onClick={() => {setDeleteVariable({category: c, variable: v})}}>
+                                                                        <ContextMenuItem className="!text-red-500" onClick={() => {setDeleteVariable({category: c, variable: v})}}>
                                                                             <MdDelete className="mr-2"/> {v.name}
                                                                         </ContextMenuItem>
                                                                     </ContextMenuContent>
@@ -139,10 +140,11 @@ export default function LinguisticVariables({categories, setCategories}: Linguis
                                         <ContextMenuItem onClick={() => {setAddVar2Category(c)}}>
                                             <MdAdd className="mr-2"/> Variable
                                         </ContextMenuItem>
+                                        <ContextMenuSeparator/>
                                         <ContextMenuItem onClick={() => {setEditCategory(c)}}>
                                             <MdEdit className="mr-2"/> {c.name}
                                         </ContextMenuItem>
-                                        <ContextMenuItem onClick={() => setDeleteCategory(c.name)} className='!text-destructive'>
+                                        <ContextMenuItem onClick={() => setDeleteCategory(c.name)} className='!text-red-500'>
                                             <MdDelete className="mr-2"/> {c.name}
                                         </ContextMenuItem>
                                     </ContextMenuContent>

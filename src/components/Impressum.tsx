@@ -12,14 +12,14 @@ export default function Impressum() {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button variant="secondary">Impressum</Button>
+                <Button variant="secondary">Imprint</Button>
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle>Impressum</DialogTitle>
+                    <DialogTitle>Imprint</DialogTitle>
                 </DialogHeader>
                 <DialogDescription>
-                    Angaben gemäß § 5 TMG
+                    Information according to § 5 TMG
                 </DialogDescription>
                 <div>
                     <p>Richard Senger</p>
