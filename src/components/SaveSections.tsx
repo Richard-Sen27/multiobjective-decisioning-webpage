@@ -72,7 +72,7 @@ export default function SaveSection({setColumns, setRows, setCategories} : Table
                 <MdSaveAlt className="text-xl"/> 
                 Save to JSON
             </Button>
-            <Input type="file" className="max-w-72" accept="application/json" onChange={upload}/>
+            <Input type="file" className="max-w-72 text-primary file:text-muted-foreground" accept="application/json" onChange={upload}/>
         </div>
     )
 }
