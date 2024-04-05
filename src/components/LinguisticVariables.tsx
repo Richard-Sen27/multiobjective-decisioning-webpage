@@ -76,7 +76,7 @@ export default function LinguisticVariables({categories, setCategories}: Linguis
     }
     
     return (
-        <div className="mx-auto md:w-2/3 max-md:mx-8 mt-12">
+        <div className="mx-auto md:w-2/3 max-md:mx-8">
             <AddVariableModal addVariable={addVariable} category={addVar2Category} setCategory={setAddVar2Category}/>
             <EditCategoryModal value={editCategory} setValue={setEditCategory} categories={categories} setCategories={setCategories}/>
             <DeleteCategoryAlert value={deleteCategory} setValue={setDeleteCategory} trigger={() => removeCategory(deleteCategory)}/>

@@ -22,7 +22,7 @@ export default function ResultTable({columns, rows} : TableProps) {
     }
 
     return (
-        <div className='mx-auto md:w-2/3 max-md:mx-8 mt-12'>
+        <div className='mx-auto md:w-2/3 max-md:mx-8'>
             <Table className="w-96">
                 <TableCaption>Calculated Subject Perfomances</TableCaption>
                 <TableHeader>

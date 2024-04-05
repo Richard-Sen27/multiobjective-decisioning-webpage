@@ -67,7 +67,7 @@ export default function SaveSection({setColumns, setRows, setCategories} : Table
     };
 
     return (
-        <div className='mx-auto md:w-2/3 max-md:mx-8 my-12 flex flex-wrap gap-8'>
+        <div className='mx-auto md:w-2/3 max-md:mx-8 flex flex-wrap gap-8'>
             <Button onClick={save} className="flex items-center gap-2">
                 <MdSaveAlt className="text-xl"/> 
                 Save to JSON

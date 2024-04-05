@@ -6,6 +6,7 @@ import ResultTable from './components/ResultTable'
 import LinguisticVariables, { VariableCategory } from './components/LinguisticVariables'
 import SaveSection from './components/SaveSections'
 import Navbar from './components/Navbar'
+import Footer from './components/Footer'
 
 function App() {
   
@@ -36,13 +37,14 @@ function App() {
   }, [columns, rows, categories])
 
   return (
-    <>
+    <div className='flex flex-col gap-12 min-h-screen'>
       <Navbar />
       <CriterionTable {...tableProps}/>
       <LinguisticVariables {...tableProps}/>
       <ResultTable {...tableProps}/>
       <SaveSection {...tableProps} />
-    </>
+      <Footer />
+    </div>
   )
 }
 
