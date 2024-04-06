@@ -4,6 +4,15 @@ import { useDarkMode, useSessionStorage } from "usehooks-ts";
 import { BsFillMoonStarsFill, BsFillSunFill, BsGit, BsGithub, BsInfoCircleFill, BsLinkedin } from "react-icons/bs";
 import { useEffect } from "react";
 import Impressum from "./Impressum";
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
+  
 
 export default function Footer() {
     const { isDarkMode, set } = useDarkMode()
@@ -35,7 +44,21 @@ export default function Footer() {
                 </div>
 
                 <div className="flex gap-6 h-fit flex-wrap mr-auto">
-                    <div className="flex gap-2 items-center"><BsInfoCircleFill/> About</div>
+
+                    <Dialog>
+                        <DialogTrigger asChild>
+                            <div className="flex gap-2 items-center cursor-pointer" role="button"><BsInfoCircleFill/> About</div>
+                        </DialogTrigger>
+                        <DialogContent>
+                            <DialogHeader>
+                            <DialogTitle>About</DialogTitle>
+                            <DialogDescription>
+                                This site is a simple web application that allows you to create a decision matrix with multiple objectives. A more in depth tutorial for usage is coming soon.
+                            </DialogDescription>
+                            </DialogHeader>
+                        </DialogContent>
+                    </Dialog>
+
                     <Separator orientation="vertical" className="h-8"/>
                     <a href="https://github.com/Richard-Sen27/multiobjective-decisioning-webpage" target="_blank" className="flex gap-2 items-center"><BsGit/> Repo</a>
                     <Separator orientation="vertical" className="h-8"/>

@@ -93,8 +93,8 @@ export default function CriterionTable({columns, setColumns, rows, setRows, cate
                             {r.title}
                       </TableCell>
                       {
-                        columns.map((col, colIndex) => 
-                          <TableInputCell key={col+"-"+colIndex} col={col} categories={categories} rowIndex={i} rows={rows} setRows={setRows}/>
+                        columns.map((col) => 
+                          <TableInputCell key={col.title} col={col} categories={categories} rowIndex={i} rows={rows} setRows={setRows}/>
                         )
                       }
                       {
