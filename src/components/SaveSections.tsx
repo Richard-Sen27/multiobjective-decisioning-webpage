@@ -1,7 +1,10 @@
-import { MdSaveAlt } from "react-icons/md";
+import { MdDelete, MdSaveAlt, MdUpload } from "react-icons/md";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { TableProps } from "@/App";
+import { Label } from "./ui/label";
+import { ActionAlert } from "./modals/ActionAlert";
+import { useState } from "react";
 
 interface SessionStorageData {
     [key: string]: any;
@@ -66,13 +69,28 @@ export default function SaveSection({setColumns, setRows, setCategories} : Table
         }
     };
 
+    const [openClearAlert, setOpenClearAlert] = useState(false)
+    const clear = () => {
+        setColumns([]);
+        setRows([]);
+        setCategories([]);
+    }
+
     return (
         <div className='mx-auto md:w-2/3 max-md:mx-6 flex flex-wrap gap-8'>
             <Button onClick={save} className="flex items-center gap-2">
                 <MdSaveAlt className="text-xl"/> 
                 Save to JSON
             </Button>
-            <Input type="file" className="max-w-72 text-primary file:text-muted-foreground" accept="application/json" onChange={upload}/>
+            <div className="flex gap-2 items-center">
+                <Button>
+                    <Label htmlFor="uploadFile" className="text-xl"><MdUpload /></Label>
+                </Button>
+                <Input type="file" id="uploadFile" className="max-w-72 text-primary file:text-muted-foreground" accept="application/json" onChange={upload}/>
+
+            </div>
+            <Button variant="destructive" className="flex gap-2 items-center" onClick={() => {setOpenClearAlert(true)}}><MdDelete className="text-xl"/> Clear Everything</Button>
+            <ActionAlert open={openClearAlert} setOpen={setOpenClearAlert} handleAction={clear}/>
         </div>
     )
 }

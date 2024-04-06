@@ -18,8 +18,8 @@ import {
   SelectValue,
   SelectContent,
   SelectItem,
-} from "./ui/select";
-import { VariableCategory } from "./LinguisticVariables";
+} from "../../ui/select";
+import { VariableCategory } from "../../LinguisticVariables";
 
 type EditColModalProps = {
   value: Column | null;

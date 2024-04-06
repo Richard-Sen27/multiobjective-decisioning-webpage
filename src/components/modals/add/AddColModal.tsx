@@ -20,7 +20,7 @@ import { Label } from "@/components/ui/label"
 import { MdAdd } from "react-icons/md"
 import { useEffect, useState } from "react"
 import { Column } from "@/App"
-import { VariableCategory } from "./LinguisticVariables"
+import { VariableCategory } from "../../LinguisticVariables"
 
 type AddColModalProps = {
   columns: Column[],

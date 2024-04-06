@@ -11,7 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { Variable, VariableCategory } from "./LinguisticVariables";
+import { Variable, VariableCategory } from "../../LinguisticVariables";
 
 type AddColModalProps = {
   addVariable: (category: VariableCategory, variable: Variable) => void;

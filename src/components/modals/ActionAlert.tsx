@@ -10,26 +10,17 @@ import {
   } from "@/components/ui/alert-dialog"
 import { useEffect, useState } from "react"
 import { createPortal } from "react-dom"
-import { SpecificVariable, VariableCategory } from "./LinguisticVariables"
   
-type DeleteVariableAlertProps = {
-    value: SpecificVariable | null,
-    setValue: (val: SpecificVariable | null) => void,
-    category: VariableCategory[],
-    setCategory: (category: VariableCategory[]) => void
+type ActionAlertProps = {
+    open: boolean,
+    setOpen: (open: boolean) => void,
+    handleAction: () => void
 }
 
-export function DeleteVariableAlert({ value, setValue, category, setCategory} : DeleteVariableAlertProps) {
-    const [open, setOpen] = useState(false)
+export function ActionAlert({ handleAction, open, setOpen } : ActionAlertProps) {
     
-    const handleDelete = () => {
-        if(!value) return
-        setCategory(category.map((c) => {
-            if(c.name === value.category.name) {
-                return {...c, variables: c.variables.filter((v) => v.name !== value.variable.name)}
-            }
-            return c
-        }))
+    const triggerAction = () => {
+        handleAction()
         setOpen(false)
     }
 
@@ -43,29 +34,22 @@ export function DeleteVariableAlert({ value, setValue, category, setCategory} : 
             window.addEventListener('keydown', handleKeyDown)
             return () => window.removeEventListener('keydown', handleKeyDown)
         } else {
-            setValue(null)
+            setOpen(false)
         }
     }, [open])
-
-    useEffect(() => {
-        if(value && value.variable.name.length > 0) {
-            setOpen(true)
-        }
-    }, [value])
     
     return createPortal(
         <AlertDialog open={open}>
-            {/* <AlertDialogTrigger>Open</AlertDialogTrigger> */}
             <AlertDialogContent>
                 <AlertDialogHeader>
                     <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                     <AlertDialogDescription>
-                        This action cannot be undone. This will permanently delete "{value?.variable.name}".
+                        If you upload this file, you will lose all unsaved changes.
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                     <AlertDialogCancel onClick={() => setOpen(false)}>Cancel</AlertDialogCancel>
-                    <AlertDialogAction onClick={handleDelete}>Continue</AlertDialogAction>
+                    <AlertDialogAction onClick={triggerAction}>Continue</AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>
         </AlertDialog>, document.body

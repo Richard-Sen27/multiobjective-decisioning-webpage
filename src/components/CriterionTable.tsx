@@ -17,13 +17,13 @@ import {
 
 import { Column, Row, TableProps } from '@/App'
 import { Input } from "@/components/ui/input"
-import AddColModal from '@/components/AddColModal'
-import AddRowModal from "@/components/AddRowModal";
+import AddColModal from '@/components/modals/add/AddColModal'
+import AddRowModal from "@/components/modals/add/AddRowModal";
 import { useEffect, useState } from 'react';
-import EditRowModal from './EditRowModal'
-import { DeleteRowAlert } from './DeleteRowAlert'
-import { DeleteColAlert } from './DeleteColAlert'
-import EditColModal from './EditColModal'
+import EditRowModal from './modals/edit/EditRowModal'
+import { DeleteRowAlert } from './modals/delete/DeleteRowAlert'
+import { DeleteColAlert } from './modals/delete/DeleteColAlert'
+import EditColModal from './modals/edit/EditColModal'
 import { toPercent } from '@/lib/utils'
 import { BsArrowUpRightCircle, BsArrowDownRightCircle } from "react-icons/bs";
 import {

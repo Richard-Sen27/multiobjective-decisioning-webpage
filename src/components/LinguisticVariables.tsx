@@ -25,12 +25,12 @@ import { Label } from "@/components/ui/label"
 import { useState } from "react";
 import { Badge } from "./ui/badge";
 import { useSessionStorage } from "usehooks-ts";
-import { DeleteCategoryAlert } from "./DeleteCategoryAlert";
-import AddCategoryModal from "./AddCategoryModal";
-import AddVariableModal from "./AddVariableModal";
-import EditCategoryModal from "./EditCategoryModal";
-import { DeleteVariableAlert } from "./DeleteVariableAlert";
-import EditVariableModal from "./EditVariableModal";
+import { DeleteCategoryAlert } from "./modals/delete/DeleteCategoryAlert";
+import AddCategoryModal from "./modals/add/AddCategoryModal";
+import AddVariableModal from "./modals/add/AddVariableModal";
+import EditCategoryModal from "./modals/edit/EditCategoryModal";
+import { DeleteVariableAlert } from "./modals/delete/DeleteVariableAlert";
+import EditVariableModal from "./modals/edit/EditVariableModal";
   
 
 export type VariableCategory = {

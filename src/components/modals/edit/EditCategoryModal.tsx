@@ -11,7 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { VariableCategory } from "./LinguisticVariables";
+import { VariableCategory } from "../../LinguisticVariables";
 
 type EditCategoryModalProps = {
   value: VariableCategory | null;
