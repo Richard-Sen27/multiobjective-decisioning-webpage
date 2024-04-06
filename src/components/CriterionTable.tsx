@@ -44,7 +44,7 @@ export default function CriterionTable({columns, setColumns, rows, setRows, cate
     const [deleteCol, setDeleteCol] = useState('')
 
     return(
-      <div className='mx-auto md:w-2/3 max-md:mx-8'>
+      <div className='mx-auto md:w-2/3 max-md:mx-6'>
         <Table>
           <TableCaption>A list of your Criterions and Values</TableCaption>
           <TableHeader>
