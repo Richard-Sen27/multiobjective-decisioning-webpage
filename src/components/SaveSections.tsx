@@ -77,18 +77,19 @@ export default function SaveSection({setColumns, setRows, setCategories} : Table
     }
 
     return (
-        <div className='mx-auto md:w-2/3 max-md:mx-6 flex flex-wrap gap-8'>
+        <div className='mx-auto lg:w-2/3 max-lg:mx-6 flex flex-wrap gap-8'>
             <Button onClick={save} className="flex items-center gap-2">
                 <MdSaveAlt className="text-xl"/> 
                 Save to JSON
             </Button>
+
             <div className="flex gap-2 items-center">
                 <Button>
-                    <Label htmlFor="uploadFile" className="text-xl"><MdUpload /></Label>
+                    <Label htmlFor="uploadFile" className="text-xl cursor-pointer"><MdUpload /></Label>
                 </Button>
                 <Input type="file" id="uploadFile" className="max-w-72 text-primary file:text-muted-foreground" accept="application/json" onChange={upload}/>
-
             </div>
+            
             <Button variant="destructive" className="flex gap-2 items-center" onClick={() => {setOpenClearAlert(true)}}><MdDelete className="text-xl"/> Clear Everything</Button>
             <ActionAlert open={openClearAlert} setOpen={setOpenClearAlert} handleAction={clear}/>
         </div>
